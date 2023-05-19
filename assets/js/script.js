@@ -16,8 +16,8 @@ sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); }
 
 
 
-// testimonials variables
-const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
+// voidone variables
+const voidoneItem = document.querySelectorAll("[data-voidone-item]");
 const modalContainer = document.querySelector("[data-modal-container]");
 const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
 const overlay = document.querySelector("[data-overlay]");
@@ -28,30 +28,30 @@ const modalTitle = document.querySelector("[data-modal-title]");
 const modalText = document.querySelector("[data-modal-text]");
 
 // modal toggle function
-const testimonialsModalFunc = function () {
+const voidoneModalFunc = function () {
   modalContainer.classList.toggle("active");
   overlay.classList.toggle("active");
 }
 
 // add click event to all modal items
-for (let i = 0; i < testimonialsItem.length; i++) {
+for (let i = 0; i < voidoneItem.length; i++) {
 
-  testimonialsItem[i].addEventListener("click", function () {
+  voidoneItem[i].addEventListener("click", function () {
 
-    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
-    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
+    modalImg.src = this.querySelector("[data-voidone-avatar]").src;
+    modalImg.alt = this.querySelector("[data-voidone-avatar]").alt;
+    modalTitle.innerHTML = this.querySelector("[data-voidone-title]").innerHTML;
+    modalText.innerHTML = this.querySelector("[data-voidone-text]").innerHTML;
 
-    testimonialsModalFunc();
+    voidoneModalFunc();
 
   });
 
 }
 
 // add click event to modal close button
-modalCloseBtn.addEventListener("click", testimonialsModalFunc);
-overlay.addEventListener("click", testimonialsModalFunc);
+modalCloseBtn.addEventListener("click", voidoneModalFunc);
+overlay.addEventListener("click", voidoneModalFunc);
 
 
 
@@ -134,7 +134,52 @@ for (let i = 0; i < formInputs.length; i++) {
   });
 }
 
+function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
 
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more";
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less";
+    moreText.style.display = "inline";
+  }
+}
+
+const readMorePrefaceMaxLength = 100;
+const readMoreTexts = document.querySelectorAll(".read-more-text");
+readMoreTexts.forEach((readMoreText) => {
+  const extra = SliceHTML.sliceHTML(
+    readMoreText,
+    readMorePrefaceMaxLength
+  );
+  if (extra.textContent.length === 0) {
+    return;
+  }
+  const preface = SliceHTML.sliceHTML(
+    readMoreText,
+    0,
+    readMorePrefaceMaxLength
+  );
+  readMoreText.innerHTML = "";
+  readMoreText.append(preface);
+  const extraSpan = document.createElement("span");
+  extraSpan.hidden = true;
+  extraSpan.append(extra);
+  const button = document.createElement("button");
+  button.classList.add("read-more-button");
+  button.textContent = "... read more";
+  button.addEventListener("click", () => {
+    button.hidden = true;
+    extraSpan.hidden = false;
+  });
+  readMoreText.append(button);
+  readMoreText.append(extraSpan);
+});
 
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
